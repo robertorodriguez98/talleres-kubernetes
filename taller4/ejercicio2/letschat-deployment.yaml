@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: letschat
+  labels:
+    app: letschat
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: letschat
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: letschat
+        tier: frontend
+    spec:
+      containers:
+      - name: contenedor-letschat
+        image: sdelements/lets-chat
+        ports:
+          - name: http-server
+            containerPort: 8080

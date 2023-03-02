@@ -1,0 +1,11 @@
+apiVersion: v1 # required
+kind: Pod # required
+metadata: # required
+ name: pod-test-web # required
+ labels:
+   app: test-web
+spec: # required
+ containers:
+   - image: iesgn/test_web:latest
+     name: contenedor-test-web
+     imagePullPolicy: Always
