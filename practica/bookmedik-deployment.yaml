@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookmedik
+  labels:
+    app: bookmedik
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bookmedik
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: bookmedik
+        tier: frontend
+    spec:
+      containers:
+      - name: contenedor-bookmedik
+        image: robertorm/bookmedik:v2_2
+        env:
+          - name: USUARIO_BOOKMEDIK
+            valueFrom:
+              configMapKeyRef:
+                name: cm-mariadb
+                key: mysql_usuario
+          - name: CONTRA_BOOKMEDIK
+            valueFrom:
+              secretKeyRef:
+                name: secret-mariadb
+                key: password
+          - name: DATABASE_HOST
+            value: mariadb
+          - name: NOMBRE_DB
+            valueFrom:
+              configMapKeyRef:
+                name: cm-mariadb
+                key: basededatos
+        ports:
+          - name: http-server
+            containerPort: 80

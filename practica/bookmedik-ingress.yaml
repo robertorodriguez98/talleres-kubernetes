@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bookmedik-ing
+spec:
+  rules:
+  - host: www.bookmedik-roberto-rodriguez.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bookmedik
+            port:
+              number: 80
